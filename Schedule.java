@@ -45,35 +45,11 @@ public class Schedule {
 	public void setCourseAtIdx(int idx, Course course) {
 		schedule.set(idx, course);
 	}
-/*
-	public Course randomSchedule(Course course) {
-		Random rnd = new Random();
-		for (int i = 0; i < schedule.size(); i++) {
-			Course temp = new Course();
-			temp.setCourseAtIdx(i, getCourse(i));
-			// random ruangan
 
-			// random jam mulai
-			int x = rnd.nextInt(getCourse(i).getAkhir() - getCourse(i).getDurasi()) + getCourse(i).getAwal();
-			temp.setAwal(x);
-			temp.setAkhir(x + getCourse(i).getDurasi());
-			// random hari
-			do {
-				x = rnd.nextInt(5) + 1;
-			}
-			while (getCourse(i).getHari()[x] == false);
-			// masukkan hari terpilih ke course
-			// temp.setHari(x);
-		}
-	}
-*/
 	public void randomAllSchedule() {
 		for (int i = 0; i < scheduleSize(); i++) {
-
+			setCourseAtIdx(i, getCourse(i).randomCourse());
 		}
-
-		randomCourse
-
 	}
 
 	public boolean isConflict(Course a, Course b) {
@@ -95,6 +71,7 @@ public class Schedule {
 		return schedule.size();
 	}
 
+	@Override
 	public String toString() {
 		String out;
 		for (int i = 0; i < scheduleSize(); i++) {

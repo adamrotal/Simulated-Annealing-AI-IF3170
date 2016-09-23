@@ -121,7 +121,6 @@ public class Course {
         Random rnd = new Random();
         do {
             Course temp = new Course();
-            temp.setCourseAtIdx(i, getCourse(i));
             int x;
             // Random hari correct
             do {
@@ -145,24 +144,28 @@ public class Course {
             } else {
                 temp.setRuang(this.getRuang());
             }
-
-            
-            // random hari
-
-            // masukkan hari terpilih ke course
-            // temp.setHari(x);
-        }
+        } while (isNotInDomain(temp, RoomManager.getRoomByRuang(temp.getRuang())));
+    
+        return temp;
     }
 
-    public boolean isNotInDomain(Course scheduled, Course course) {
+    public boolean isNotInDomain(Course course, Room room) {
+        int idxHari = 999;
         for (int i = 0; i < 5; i++) {
-            scheduled.
+            if (course.getHariAtIdx(i) == true) {
+                idxHari = i;
+            }
         }
-        int scheduledDay;
-        boolean isHariIn;
-        for (int i = 0; i < RoomManager.numberOfRoom(); i++) {
+        boolean isHariIn = false;
+        if (room.getHariAtIdx(idxHari) && course.getHariAtIdx(idxHari)) {
+            isHariIn = true;
+        }
+        boolean isJamIn = false;
+        if ((course.getAwal() >= room.getAwal())&&(course.getAwal() <= (room.getAkhir()-course.getDurasi()))) {
+            isJamIn = true;
+        }
 
-        }
+        return (isHariIn && isJamIn);        
     }
 
     @Override
