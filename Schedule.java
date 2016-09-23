@@ -10,15 +10,9 @@ public class Schedule {
 		}
 	}
 
-	public Schedule(ArrayList<Course> schedule, int conflict) {
-		for (int i = 0; i < schedule.size(); i++) {
-			this.schedule.add(schedule.get(i));
-		}
+	public Schedule(ArrayList schedule, int conflict) {
+		this.schedule = (ArrayList)schedule.clone();
 		this.conflict = conflict;
-	}
-
-	public Schedule(ArrayList schedule) {
-		this.schedule = (ArrayList) schedule.clone();
 	}
 
 	public ArrayList getSchedule() {
@@ -26,8 +20,8 @@ public class Schedule {
 	}
 
 	public int getConflict() {
-		for (int i = 0; i < schedule.size(); i++) {
-			for (int j = i+1; j < schedule.size(); j++) {
+		for (int i = 0; i < scheduleSize(); i++) {
+			for (int j = i+1; j < scheduleSize(); j++) {
 				if (isConflict(getCourse(i), getCourse(j))) {
 					conflict++;
 				}
@@ -36,12 +30,8 @@ public class Schedule {
 		return conflict;
 	}
 
-	public void setSchedule(ArrayList<Course> schedule) {
-		ArrayList<Course> temp = new ArrayList<Course>();
-		for (int i = 0; i < schedule.size(); i++) {
-			temp.add(schedule.get(i));
-		}
-		this.schedule = temp;
+	public void setSchedule(ArrayList schedule) {
+		this.schedule = (ArrayList)schedule.clone();
 	}
 
 	public void setConflict(int conflict) {
@@ -78,6 +68,11 @@ public class Schedule {
 	}
 */
 	public void randomAllSchedule() {
+		for (int i = 0; i < scheduleSize(); i++) {
+
+		}
+
+		randomCourse
 
 	}
 

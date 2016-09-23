@@ -81,6 +81,10 @@ public class Course {
     public boolean[] getHari(){
         return this.hari;
     }
+
+    public boolean getHariAtIdx(int idx) {
+        return this.hari[idx];
+    }
     
     // Sets Nama to nm
     public void setNama(String nm) {
@@ -109,27 +113,57 @@ public class Course {
         }
     }
 
+    public void setHariAtIdx(int idx, boolean bool) {
+        this.hari[idx] = bool;
+    }
+
     public Course randomCourse() {
         Random rnd = new Random();
-        for (int i = 0; i < schedule.size(); i++) {
+        do {
             Course temp = new Course();
             temp.setCourseAtIdx(i, getCourse(i));
-            // random ruangan
-
-            // random jam mulai
-            int x = rnd.nextInt(getCourse(i).getAkhir() - getCourse(i).getDurasi()) + getCourse(i).getAwal();
+            int x;
+            // Random hari correct
+            do {
+                x = rnd.nextInt(5);
+            } while (getCourse(i).getHariAtIdx(x) == false);
+            
+            for (int j = 0; j < 5; j++) {
+                if (j != x) {
+                    temp.setHariAtIdx(j, false);
+                }
+            }
+            // Random jam kuliah correct
+            x = rnd.nextInt(getCourse(i).getAkhir() - getCourse(i).getDurasi() - getCourse(i).getAwal() + 1) + getCourse(i).getAwal();
             temp.setAwal(x);
             temp.setAkhir(x + getCourse(i).getDurasi());
-            // random hari
-            do {
-                x = rnd.nextInt(5) + 1;
+            
+            // Random ruangan
+            if (getRuang() == "") {
+                x = rnd.nextInt(RoomManager.numberOfRoom());
+                temp.setRuang(RoomManager.getRoom(x).getRuang());
+            } else {
+                temp.setRuang(this.getRuang());
             }
-            while (getCourse(i).getHari()[x] == false);
+
+            
+            // random hari
+
             // masukkan hari terpilih ke course
             // temp.setHari(x);
         }
     }
 
+    public boolean isNotInDomain(Course scheduled, Course course) {
+        for (int i = 0; i < 5; i++) {
+            scheduled.
+        }
+        int scheduledDay;
+        boolean isHariIn;
+        for (int i = 0; i < RoomManager.numberOfRoom(); i++) {
+
+        }
+    }
 
     @Override
     public String toString(){
