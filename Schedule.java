@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Schedule {
-	private ArrayList schedule = new ArrayList<Course>();
+	private ArrayList<Course> schedule = new ArrayList<Course>();
 	private int conflict = 0;
 
 	public Schedule() {
@@ -17,12 +17,22 @@ public class Schedule {
 		this.conflict = conflict;
 	}
 
+	public Schedule(ArrayList schedule) {
+		this.schedule = (ArrayList) schedule.clone();
+	}
+
 	public ArrayList getSchedule() {
 		return schedule;
 	}
 
 	public int getConflict() {
-		// hitung conflict
+		for (int i = 0; i < schedule.size(); i++) {
+			for (int j = i+1; j < schedule.size(); j++) {
+				if (isConflict(getCourse(i), getCourse(j))) {
+					conflict++;
+				}
+			}
+		}
 		return conflict;
 	}
 
@@ -45,8 +55,8 @@ public class Schedule {
 	public void setCourseAtIdx(int idx, Course course) {
 		schedule.set(idx, course);
 	}
-
-	public void randomSchedule() {
+/*
+	public Course randomSchedule(Course course) {
 		Random rnd = new Random();
 		for (int i = 0; i < schedule.size(); i++) {
 			Course temp = new Course();
@@ -65,5 +75,36 @@ public class Schedule {
 			// masukkan hari terpilih ke course
 			// temp.setHari(x);
 		}
+	}
+*/
+	public void randomAllSchedule() {
+
+	}
+
+	public boolean isConflict(Course a, Course b) {
+		boolean isSameHari = a.getHari() == b.getHari();
+		boolean isSameJam = false;
+		if ((b.getAwal() >= a.getAwal())&&(b.getAwal() <= a.getAkhir())) {
+			isSameJam = true;
+		}
+		boolean isSameRuang = a.getRuang() = b.getRuang();
+
+		if (isSameHari && isSameJam && isSameRuang) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public int scheduleSize() {
+		return schedule.size();
+	}
+
+	public String toString() {
+		String out;
+		for (int i = 0; i < scheduleSize(); i++) {
+			out += getCourse(i) + "%n"; 
+		}
+		return out;
 	}
 }

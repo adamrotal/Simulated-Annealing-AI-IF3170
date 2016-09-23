@@ -28,7 +28,7 @@ public class Course {
         }
     }
     
-    // Constructs an course with certain of parameters
+    // Constructs a course with certain of parameters
     public Course(String nm, String rg, double aw, double ak, int dur, boolean[] hr) {
         this.nama = nm;
         this.ruang = rg;
@@ -37,6 +37,18 @@ public class Course {
         this.durasi = dur;
         for (int i = 0; i < this.hari.length; i++) {
             hari[i] = hr[i];
+        }
+    }
+
+    // Constructs a course from another course
+    public Course(Course course) {
+        this.nama = course.getNama();
+        this.ruang = course.getRuang();
+        this.awal = course.getAwal();
+        this.akhir = course.getAkhir();
+        this.durasi = course.getDurasi();
+        for (int i = 0; i < this.hari.length; i++) {
+            hari[i] = course.hari[i];
         }
     }
     
@@ -94,6 +106,27 @@ public class Course {
     public void setHari(boolean[] hr) {
         for (int i = 0; i < hari.length; i++) {
             this.hari[i] = hr[i];
+        }
+    }
+
+    public Course randomCourse() {
+        Random rnd = new Random();
+        for (int i = 0; i < schedule.size(); i++) {
+            Course temp = new Course();
+            temp.setCourseAtIdx(i, getCourse(i));
+            // random ruangan
+
+            // random jam mulai
+            int x = rnd.nextInt(getCourse(i).getAkhir() - getCourse(i).getDurasi()) + getCourse(i).getAwal();
+            temp.setAwal(x);
+            temp.setAkhir(x + getCourse(i).getDurasi());
+            // random hari
+            do {
+                x = rnd.nextInt(5) + 1;
+            }
+            while (getCourse(i).getHari()[x] == false);
+            // masukkan hari terpilih ke course
+            // temp.setHari(x);
         }
     }
 
